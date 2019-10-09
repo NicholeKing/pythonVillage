@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+	{% load static %}
+	<title>Character bio</title>
+	<link rel="stylesheet" type="text/css" href="{% static 'style.css' %}">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+	<link href="https://fonts.googleapis.com/css?family=Merienda+One&display=swap" rel="stylesheet">
+	<style type="text/css">
+		body {
+			background-image: url("{% static 'bg.jpg' %}");
+			background-size: cover;
+		}
+		h4 {
+			padding-bottom: 10px;
+		}
+		.container-fluid {
+			padding: 0px;
+		}
+		.wrapper{
+			padding-left: 15px;
+			padding-right: 15px;
+		}
+	</style>
+</head>
+<body>
+	<div class="container-fluid">
+		<nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #696246;">
+				<ul class="navbar-nav col-11">
+					<li class="nav-item">
+						<a class="nav-link" href="/dashboard">{{char.char_name}}</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-item nav-link" href="/findJob">Find Job</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-item nav-link" href="/postJob">Create Job</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-item nav-link" href="/villagers">Villagers</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-item nav-link" href="/messages">Messages</a>
+					</li>
+				</ul>
+				<ul class="navbar-nav col-1">
+					<li class="nav-item" style="border-right: none;">
+						<a class="nav-item nav-link" href="/logout">Logout</a>
+					</li>
+				</ul>
+			</nav>
+		</div>
+	<div class="wrapper">
+		<h1>{{ person.char_name }}</h1>
+		<h4>Race/Species: {{ person.race }}</h4>
+		<h4>Gender: {{ person.gender }}</h4>
+		<h4>Age: {{ person.age }}</h4>
+		<h4>Occupation: {{ person.occupation }}</h4>
+		<h4>Description: {{ person.description }}</h4>
+		<h4>Pet: {{ person.pet_name }} the {{ person.pet }}</h4>
+		{% if person.id == request.session.cid %}
+		<h4>Gold: {{ person.gold }}</h4>
+		{% endif %}
+		<h4>Standing: {{ person.standing }}</h4><br>
+		<h4>{{person.char_name}}'s Friends:</h4>
+		{% for friend in friends %}
+		<p>{{friend.char_name}}</p>
+		{% endfor %}
+		<br>
+		{% if person.id == request.session.cid %}
+		<a href="/edit/{{char.id}}">Edit</a>
+		{% endif %}
+	</div>
+</body>
+</html>

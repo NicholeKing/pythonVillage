@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head>
+	{% load static %}
+	<title>Your profile</title>
+	<link rel="stylesheet" type="text/css" href="{% static 'style.css' %}">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+	<link href="https://fonts.googleapis.com/css?family=Merienda+One&display=swap" rel="stylesheet">
+	<style type="text/css">
+		body {
+			background-image: url("{% static 'bg.jpg' %}");
+			background-size: cover;
+		}
+		.messages {
+			height: 250px;
+			margin-bottom: 20px;
+		}
+		.activities {
+			height: 300px;
+		}
+		.info {
+			height: 600px;
+		}
+		.image {
+			width: 250px;
+			height: 250px;
+			border: 1px solid black;
+		}
+		h3, h5{
+			padding-bottom: 10px;
+		}
+		.mess {
+			border-bottom: 1px solid darkgray;
+		}
+		.container-fluid {
+			padding: 0px;
+		}
+		.wrapper{
+			padding-left: 15px;
+			padding-right: 15px;
+		}
+	</style>
+</head>
+<body>
+	<div class="container-fluid">
+		<nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #544e48;">
+			<ul class="navbar-nav col-11">
+				<li class="nav-item active">
+					<a class="nav-link" href="/dashboard">{{char.char_name}}</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-item nav-link" href="/findJob">Find Job</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-item nav-link" href="/postJob">Create Job</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-item nav-link" href="/villagers">Villagers</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-item nav-link" href="/messages">Messages</a>
+				</li>
+			</ul>
+			<ul class="navbar-nav col-1">
+				<li class="nav-item" style="border-right: none;">
+					<a class="nav-item nav-link" href="/logout">Logout</a>
+				</li>
+			</ul>
+		</nav>
+		<div class="wrapper">
+			<div class="row">
+				<div class="col-3 info">
+					<h1 style="margin-bottom: 20px; border-bottom: 1px solid darkgray;">{{ person.char_name }}</h1>
+					<h3>Gold: {{ person.gold }}</h3>
+					<h3 style="margin-bottom: 20px;">Standing: {{ person.standing }}</h3>
+					<h5>Race/Species: {{ person.race }}</h5>
+					<h5>Gender: {{ person.gender }}</h5>
+					<h5>Age: {{ person.age }}</h5>
+					<h5>Occupation: {{ person.occupation }}</h5>
+					<h5>Pet: {{ person.pet_name }} the {{ person.pet }}</h5>
+					<h5 style="margin-bottom: 20px;">Description: {{ person.description }}</h5>
+					<a href="/edit/{{person.id}}">Edit</a>
+				</div>
+				<div class="col-3">
+					<h5 style="text-align: center;"></h5>
+				</div>
+				<div class="col-6">
+					<div class="messages overflow-auto">
+						<h1>Messages</h1>
+						{% for message in received %}
+						<p class="mess"><a href="/viewMess/{{message.id}}">Message</a> from {{message.sender.char_name}} on {{message.created_at|date:"d M Y, g:i a"}}</p>
+						{% endfor %}
+					</div>
+					<div class="activities overflow-auto">
+						<h1>Recent Activities</h1>
+						{% for message in request.session.activity_log %}
+						<p class="mess">{{message}}</p>
+						{% endfor %}
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

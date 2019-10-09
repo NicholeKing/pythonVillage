@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+	{% load static %}
+	<title>Find a job</title>
+	<link rel="stylesheet" type="text/css" href="{% static 'style.css' %}">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+	<link href="https://fonts.googleapis.com/css?family=Merienda+One&display=swap" rel="stylesheet">
+	<style type="text/css">
+		body {
+			background-image: url("{% static 'bg.jpg' %}");
+			background-size: cover;
+		}
+		.container-fluid {
+			padding: 0px;
+		}
+		.wrapper{
+			padding-left: 15px;
+			padding-right: 15px;
+		}
+		td, th {
+			font-size: 18px;
+		}
+	</style>
+</head>
+<body>
+	<div class="container-fluid">
+		<nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #696246;">
+				<ul class="navbar-nav col-11">
+					<li class="nav-item">
+						<a class="nav-link" href="/dashboard">{{ char.char_name }}</a>
+					</li>
+					<li class="nav-item active">
+						<a class="nav-item nav-link" href="/findJob">Find Job</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-item nav-link" href="/postJob">Create Job</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-item nav-link" href="/villagers">Villagers</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-item nav-link" href="/messages">Messages</a>
+					</li>
+				</ul>
+				<ul class="navbar-nav col-1">
+					<li class="nav-item" style="border-right: none;">
+						<a class="nav-item nav-link" href="/logout">Logout</a>
+					</li>
+				</ul>
+			</nav>
+		<div class="wrapper">
+			<h1>Find a job</h1>
+			<div class="posting">
+				<table class="table table-bordered table-hover col-8">
+					<thead>
+						<th>Listing</th>
+						<th style="width:250px;">Recommended for</th>
+						<th style="width:80px; text-align: center;">Reward amount</th>
+						<th style="width: 210px; text-align: center;">Actions</th>
+					</thead>
+					<tbody>
+						{% for job in all_jobs %}
+						{% if job.available == True %}
+						<tr>
+							<td>{{job.job_title}}</td>
+							<td>{{job.job_occupation}}</td>
+							<td style="text-align: center;">{{job.reward}}</td>
+							<td>
+								<a href="/jobDetails/{{job.id}}" class="btn btn-info">Details</a>
+								{% if job.poster.id == request.session.uid %}
+								<a href="/delete/{{job.id}}" class="btn btn-info" style="margin-left:10px;">Delete</a>
+								{% else %}
+								<a href="/jobResult/{{job.id}}" class="btn btn-info">Take Job</a>
+								{% endif %}
+							</td>
+						</tr>
+						{% endif %}
+						{% endfor %}
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

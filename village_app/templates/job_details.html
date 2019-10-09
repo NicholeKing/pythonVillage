@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+	{% load static %}
+	<title>Details of job</title>
+	<link rel="stylesheet" type="text/css" href="{% static 'style.css' %}">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+	<link href="https://fonts.googleapis.com/css?family=Merienda+One&display=swap" rel="stylesheet">
+	<style type="text/css">
+		body {
+			background-image: url("{% static 'bg.jpg' %}");
+			background-size: cover;
+		}
+		h2, h4{
+			padding-bottom: 25px;
+		}
+		.container-fluid {
+			padding: 0px;
+		}
+		.wrapper{
+			padding-left: 15px;
+			padding-right: 15px;
+		}
+	</style>
+
+</head>
+<body>
+	<div class="container-fluid">
+		<nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #696246;">
+			<ul class="navbar-nav col-11">
+				<li class="nav-item">
+					<a class="nav-link" href="/dashboard">{{char.char_name}}</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-item nav-link" href="/findJob">Find Job</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-item nav-link" href="/postJob">Create Job</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-item nav-link" href="/villagers">Villagers</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-item nav-link" href="/messages">Messages</a>
+				</li>
+			</ul>
+			<ul class="navbar-nav col-1">
+				<li class="nav-item" style="border-right: none;">
+					<a class="nav-item nav-link" href="/logout">Logout</a>
+				</li>
+			</ul>
+		</nav>
+		<div class="wrapper">
+			<h1>Details of job</h1><br>
+			<h2><strong>{{details.job_title}}</strong></h2>
+			<h4>Description: {{details.job_description}}</h4>
+			<h4>Recommended Occupation: {{details.job_occupation}}</h4>
+			<h4>Reward Amount: {{details.reward}} gold</h4>
+			<h4>Posted by: {{details.poster.char_name}}</h4>
+			{% if details.poster.id == request.session.uid %}
+			<a href="/delete/{{details.id}}" class="btn btn-info">Delete</a>
+			{% else %}
+			<a href="/jobResult/{{job.id}}" class="btn btn-info">Take Job</a>
+			{% endif %}
+		</div>
+	</div>
+</body>
+</html>

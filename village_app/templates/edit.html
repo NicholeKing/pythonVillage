@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html>
+<head>
+	{% load static %}
+	<title>Edit your bio</title>
+	<link rel="stylesheet" type="text/css" href="{% static 'style.css' %}">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+	<link href="https://fonts.googleapis.com/css?family=Merienda+One&display=swap" rel="stylesheet">
+	<style type="text/css">
+		body {
+			background-image: url("{% static 'bg.jpg' %}");
+			background-size: cover;
+		}
+		.container-fluid {
+			padding: 0px;
+		}
+		.wrapper{
+			padding-left: 15px;
+			padding-right: 15px;
+		}
+	</style>
+</head>
+<body>
+	<div class="container-fluid">
+		<nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #696246;">
+			<ul class="navbar-nav col-11">
+				<li class="nav-item">
+					<a class="nav-link" href="/dashboard">{{char.char_name}}</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-item nav-link" href="/findJob">Find Job</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-item nav-link" href="/postJob">Create Job</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-item nav-link" href="/villagers">Villagers</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-item nav-link" href="/messages">Messages</a>
+				</li>
+			</ul>
+			<ul class="navbar-nav col-1">
+				<li class="nav-item" style="border-right: none;">
+					<a class="nav-item nav-link" href="/logout">Logout</a>
+				</li>
+			</ul>
+		</nav>
+		<div class="wrapper">
+			<h1>Edit your bio</h1>
+			<div class="row">
+				<div class="col-6">
+					<form enctype="multipart/form-data" action="/edit_form" method="post">
+						{% csrf_token %}
+						<div class="form-group">
+							<span class="red">{{ request.session.char_errors.char_name }}</span>
+							<label>Character Name</label>
+							<input class="form-control" type="text" name="char_name" value={{char.char_name}}>
+						</div>
+						<div class="form-group">
+							<label>Race/Species</label>
+							<select class="form-control" name="race">
+								<optgroup label="Current">
+									<option value={{char.race}}>{{char.race}}</option>
+								</optgroup>
+								<option value="Human">Human</option>
+								<option value="Elf">Elf</option>
+								<option value="Dwarf">Dwarf</option>
+								<option value="Alien">Alien</option>
+								<option value="Orc">Orc</option>
+								<option value="Mage">Mage</option>
+								<option value="Demon">Demon</option>
+								<option value="Angel">Angel</option>
+								<option value="Cyborg">Cyborg</option>
+								<optgroup label="Hybrid">
+									<option value="Werewolf">Werewolf</option>
+									<option value="Centuar">Centuar</option>
+									<option value="Mermaid">Mermaid</option>
+									<option value="Lizardman">Lizardman</option>
+									<option value="Half Other Animal">Half other animal</option>
+								</optgroup>
+								<option value="Fairy">Fairy</option>
+								<option value="Vampire">Vampire</option>
+							</select>
+						</div>
+						<div class="row">
+							<div class="form-group col-6">
+								<label>Gender</label>
+								<select class="form-control" name="gender">
+									<optgroup label="Current">
+										<option value={{char.gender}}>{{char.gender}}</option>
+									</optgroup>
+									<option value="Male">Male</option>
+									<option value="Female">Female</option>
+									<option value="None">None</option>
+									<option value="All">All</option>
+									<option value="Other">Other</option>
+								</select>
+							</div>
+							<div class="form-group col-6">
+								<span class="red">{{ request.session.char_errors.age }}</span>
+								<label>Age <small>(Must be a whole number)</small></label>
+								<input class="form-control" type="text" name="age" value={{char.age}}>
+							</div>
+						</div>
+						<div class="form-group">
+							<label>Occupation</label>
+							<select class="form-control" name="occupation">
+								<optgroup label="Current">
+									<option value={{char.occupation}}>{{char.occupation}}</option>
+								</optgroup>
+								<option value="Simple Villager">Simple Villager</option>
+								<option value="Hunter">Hunter</option>
+								<option value="Farmer">Farmer</option>
+								<option value="Mercenary/Assassin">Mercenary/Assassin</option>
+								<option value="Artist">Artist</option>
+								<option value="Entertainer">Entertainer</option>
+								<option value="Blacksmith">Blacksmith</option>
+								<option value="Mechanic">Mechanic</option>
+								<option value="Merchant">Merchant</option>
+								<option value="Sailor">Sailor</option>
+								<option value="Scholar">Scholar</option>
+								<option value="Soldier">Soldier</option>
+								<option value="Adventurer">Adventurer</option>
+							</select>
+						</div>
+						<div class="row">
+							<div class="form-group col-6">
+								<label>Pet</label>
+								<select class="form-control" name="pet">
+									<optgroup label="Current">
+										<option value={{char.pet}}>{{char.pet}}</option>
+									</optgroup>
+									<option value="Dragon">Dragon</option>
+									<option value="Griffin">Griffin</option>
+									<option value="Unicorn">Unicorn</option>
+									<option value="Dog">Dog</option>
+									<option value="Cat">Cat</option>
+									<option value="Wolf">Wolf</option>
+									<option value="Lion">Lion</option>
+									<option value="Tiger">Tiger</option>
+									<option value="Giant Bear">Giant Bear</option>
+									<option value="Alien Creature">Alien Creature</option>
+									<option value="Sentient Blob">Sentient Blob</option>
+									<option value="Golem">Golem</option>
+									<option value="Small Bird">Small Bird</option>
+									<option value="Giant Eagle">Giant Eagle</option>
+									<option value="Pegasus">Pegasus</option>
+									<option value="Yeti">Yeti</option>
+									<option value="Chimera">Chimera</option>
+									<option value="Serpent">Serpent</option>
+									<option value="Spider">Giant Spider</option>
+									<option value="Leviathan">Leviathan</option>
+									<option value="Giant Crab">Giant Crab</option>
+								</select>
+							</div>
+							<div class="form-group col-6">
+								<span class="red">{{ request.session.char_errors.pet_name }}</span>
+								<label>Pet Name</label>
+								<input class="form-control" type="text" name="pet_name" value={{char.pet_name}}>
+							</div>
+						</div>
+						<div class="form-group">
+							<span class="red">{{ request.session.char_errors.description }}</span>
+							<label>Description</label>
+							<textarea class="form-control" rows="3" name="description">{{char.description}}</textarea>
+						</div>
+						<button class="btn btn-info">Update</button>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

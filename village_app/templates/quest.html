@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+	{% load static %}
+	<title>Quest!</title>
+	<link rel="stylesheet" type="text/css" href="{% static 'style.css' %}">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+	<link href="https://fonts.googleapis.com/css?family=Merienda+One&display=swap" rel="stylesheet">
+	<style type="text/css">
+		* {
+			color: #3d3a30;
+			padding-bottom: 15px;
+		}
+		body {
+			background: #262524;
+		}
+		.container {
+			padding-top: 200px;
+			margin: 0 auto;
+			border-radius: 5px;
+			box-shadow: 3px 3px 3px gray;
+			margin-top: 40px;
+			padding-bottom: 200px;
+			background-image: url("{%static 'paper_bg.jpg'%}");
+			background-size: cover;
+		}
+		h1 {
+			text-align: center;
+		}
+		a {
+			margin-top: 210px;
+			text-align: center;
+			float: right;
+			margin-right: 100px;
+		}
+	</style>
+</head>
+<body>
+	<div class="container">
+		<h1>{{pet}}</h1>
+		<h1>{{total}}</h1>
+		<h1>{{standing}}</h1>
+		<a href="/dashboard">Head back -></a>
+	</div>
+</body>
+</html>
